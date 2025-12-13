@@ -163,6 +163,7 @@ const LandingPage = () => {
   const renderOverlay = () => {
     if (openCard === null) return null;
     const event = events[openCard];
+    
     return (
       <div
         className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/70"
@@ -170,24 +171,20 @@ const LandingPage = () => {
         onClick={() => setOpenCard(null)}
       >
         <div
-          className={`pixel-corners ${event.bg} ${event.text} relative shadow-2xl`}
+          className={`pixel-corners ${event.bg} ${event.text} relative shadow-2xl flex flex-col md:flex-row overflow-hidden`}
           style={{
-            width: "min(90vw, 600px)",
-            minHeight: "min(60vh, 400px)",
+            width: "min(90vw, 900px)",
+            height: "min(80vh, 450px)",
             border: `16px solid ${event.borderColor}`,
-            padding: "2.5rem 2rem",
             boxSizing: "border-box",
             position: "relative",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            justifyContent: "flex-start",
             fontWeight: "bold",
           }}
           onClick={(e) => e.stopPropagation()}
         >
+          {/* Close Button */}
           <button
-            className="absolute top-4 right-4 text-3xl text-gray-700 hover:text-red-500 transition-colors font-bold z-10"
+            className="absolute top-2 right-2 text-3xl text-gray-700 hover:text-red-500 transition-colors font-bold z-50"
             aria-label="Close"
             onClick={() => setOpenCard(null)}
             style={{
@@ -205,16 +202,48 @@ const LandingPage = () => {
           >
             x
           </button>
-          <span className="font-press-start text-3xl mb-4">{event.title}</span>
-          <p
-            className="font-IBM Plex Mono text-base mb-4"
-            style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+
+          {/* LEFT SIDE: Text*/}
+          <div 
+            className="w-full md:w-1/2 h-full p-8 overflow-y-auto"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
+              justifyContent: "flex-start",
+            }}
           >
-            {event.desc}
-          </p>
-          <div className="font-normal text-sm" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>
-            {event.details}
+            <span className="font-press-start text-2xl md:text-3xl mb-4 leading-tight">
+              {event.title}
+            </span>
+            <p
+              className="font-IBM Plex Mono text-sm md:text-base mb-4"
+              style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+            >
+              {event.desc}
+            </p>
+            <div 
+              className="font-normal text-xs md:text-sm" 
+              style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+            >
+              {event.details}
+            </div>
           </div>
+
+          {/* RIGHT SIDE: Image Container */}
+          <div 
+            className="w-full md:w-1/2 h-full relative bg-black/5"
+            style={{
+              borderLeft: window.innerWidth >= 768 ? `16px solid ${event.borderColor}` : 'none',
+              borderTop: window.innerWidth < 768 ? `16px solid ${event.borderColor}` : 'none',
+            }}
+          >
+             {/* Placeholder for Image*/}
+            <div className="w-full h-full flex items-center justify-center opacity-30">
+               <span className="font-press-start">IMAGE</span>
+            </div>
+          </div>
+
         </div>
       </div>
     );
@@ -349,8 +378,8 @@ const LandingPage = () => {
               key={i}
               className={getCardClass(event)}
               style={{
-                width: "min(19.7vw, 300px)",
-                height: "min(19.7vw, 300px)",
+                width: "min(19.7vw, 275px)",
+                height: "min(19.7vw, 275px)",
                 borderRadius: "0px",
                 display: "flex",
                 flexDirection: "column",
@@ -380,7 +409,7 @@ const LandingPage = () => {
 
         {/* Pac-Man and Pellets */}
         <div className="relative flex items-center w-full h-12 mx-auto "
-          style={{ maxWidth: "min(63.2vw, 964px)" }}>
+          style={{ maxWidth: "min(63.2vw, 964px)",transform: "translateX(-4px)" }}>
           <img
             src="/PacMan.gif"
             alt="Pac-Man"
@@ -428,8 +457,8 @@ const LandingPage = () => {
               key={i + 3}
               className={getCardClass(event)}
               style={{
-                width: "min(19.7vw, 300px)",
-                height: "min(19.7vw, 300px)",
+                width: "min(19.7vw, 275px)",
+                height: "min(19.7vw, 275px)",
                 borderRadius: "0px",
                 display: "flex",
                 flexDirection: "column",
